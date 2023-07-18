@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Duplicate Remover App</title>
+</head>
+<body>
+  <textarea id="inputBox" rows="100" cols="1"></textarea><br>
+  <button onclick="removeDuplicates()">Remove Duplicates</button><br>
+  <textarea id="outputBox" rows="100" cols="1" disabled></textarea>
+
+  <script>
+    function removeDuplicates() {
+      var input = document.getElementById("inputBox").value;
+      var url = "https://script.google.com/macros/s/AKfycbxIYfuc3pyu_2GP_4P-UqRDUG_JzrP5XQttX0FFHB-yWVPgOH4XA9_SsUT4p3sjbglHIQ/exec"; // Replace <WEB_APP_URL> with the web app URL you copied earlier.
+
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var output = JSON.parse(xhr.responseText);
+          document.getElementById("outputBox").value = output.join("\n");
+        }
+      };
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send("input=" + encodeURIComponent(input));
+    }
+  </script>
+</body>
+</html>
